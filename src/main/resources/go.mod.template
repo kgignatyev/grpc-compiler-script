@@ -1,0 +1,4 @@
+module {{{ORG_NAME}}}/{{{PROTO_NAME}}}_proxy
+
+go 1.15
+

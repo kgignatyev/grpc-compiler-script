@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package kgi.test_api;
+option java_package = "kgi.test_api";
+option go_package = "kgi;kgi_test_api";
+import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+message GreetingMessage {
+  string name = 1;
+}
+
+service GreetingsService {
+
+  rpc greet( GreetingMessage ) returns ( google.protobuf.StringValue );
+
+}
+

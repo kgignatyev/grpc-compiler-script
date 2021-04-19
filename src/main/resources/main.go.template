@@ -1,0 +1,47 @@
+package main
+//copy this file into src/main/go as main.go to activate creation of proxy
+import (
+	"context"
+	"flag"
+	"net/http"
+
+	"github.com/golang/glog"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"google.golang.org/grpc"
+
+
+	gw "{{{ORG_NAME}}}/{{{PROTO_NAME}}}_proxy/{{{ORG_NAME}}}"
+)
+
+var (
+	// command-line options:
+	// gRPC server endpoint
+	grpcServerEndpoint = flag.String("grpc-server-endpoint",  "localhost:6565", "gRPC server endpoint")
+)
+
+func run() error {
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	// Register gRPC server endpoint
+	// Note: Make sure the gRPC server is running properly and accessible
+	mux := runtime.NewServeMux()
+	opts := []grpc.DialOption{grpc.WithInsecure()}
+	err := gw.Register{{{SERVICE_NAME}}}HandlerFromEndpoint(ctx, mux,  *grpcServerEndpoint, opts)
+	if err != nil {
+		return err
+	}
+
+	// Start HTTP server (and proxy calls to gRPC server endpoint)
+	return http.ListenAndServe(":8081", mux)
+}
+
+func main() {
+	flag.Parse()
+	defer glog.Flush()
+
+	if err := run(); err != nil {
+		glog.Fatal(err)
+	}
+}

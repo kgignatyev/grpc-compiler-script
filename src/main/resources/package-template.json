@@ -1,0 +1,10 @@
+{
+  "name": "{{{NPM_PREFIX}}}/{{{INTERFACE_NAME}}}",
+  "version": "{{{INTERFACE_VERSION}}}",
+  "dependencies": {
+{{#NPM_DEPENDENCIES}}
+   "{{{NPM_PREFIX}}}/{{{artifactId}}}": "{{version}}",
+{{/NPM_DEPENDENCIES}}
+    "google-protobuf": "^3.14.0"
+  }
+}
