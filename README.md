@@ -15,5 +15,12 @@ to debug plugin
 
     mvn clean install; mvnDebug -f test-pom.xml grpc-compiler-script:generate-build-script
 
+try interactively in Docker 
+
+    ./test-via-docker-image.sh
+    # in the docker shell 
+    mvn clean install; mvn -f test-pom.xml grpc-compiler-script:generate-build-script
+    ./compile-grpc.sh
+
 Use
 ---
